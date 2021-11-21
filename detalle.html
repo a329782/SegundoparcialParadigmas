@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,500&display=swap');
+    body{
+        background-color: rgb(146, 231, 231);
+    }
+    h1{
+        font-family: 'Bebas Neue', cursive;
+    }
+    div {
+        text-align: justify;
+    }
+    .center {
+        align-items: center;
+        margin: auto;
+        width: 50%;
+        border: 3px solid rgb(0, 247, 255);
+        padding: 10px;
+    }
+    p{
+        font-family: 'Josefin Sans', sans-serif;
+        color: gray;
+        font-size: 36px;
+    }
+</style>
+<body>
+    <h1 id="titulo" align="center"></h1>
+
+    <div class="center" align = "center">
+        <p id="texto"></p>
+        <img src="load.gif" alt="" id="imagenCarga">
+    </div>
+
+    <a href="index.html">Regresar</a>
+
+    <script>
+
+        const urlLocal = new URL(window.location.href);
+        const parametro = urlLocal.searchParams;
+        const id = parametro.get('id');
+
+        const url = `https://jsonplaceholder.typicode.com/posts/${id}`;
+        
+        fetch(url)
+            .then(response => response.json())
+            .then(posts => {
+                document.getElementById("titulo").innerHTML = posts.title;
+                document.getElementById("texto").innerHTML = posts.body;
+            })
+            .catch(error => console.log(error))
+            .finally(() => {
+                imagenCarga.src = "";
+            });
+
+    </script>
+
+</body>
+</html>
